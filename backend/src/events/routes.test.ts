@@ -28,29 +28,69 @@ describe("Event Routes", () => {
 
   describe("GET /api/events", () => {
     it("should list events without all param", async () => {
-      // This would test listing future events
-      expect(true).toBe(true);
+      const url = new URL("http://localhost:3000/api/events");
+      const req = new Request(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      const res = await handleEventRoutes(req);
+
+      expect(res).toBeInstanceOf(Response);
+      expect(typeof res.status).toBe("number");
+      expect(res.status).toBeGreaterThanOrEqual(200);
+      expect(res.status).toBeLessThan(600);
     });
 
     it("should list all events with all=true", async () => {
-      // This would test listing all events including past
-      expect(true).toBe(true);
+      const url = new URL("http://localhost:3000/api/events?all=true");
+      const req = new Request(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      const res = await handleEventRoutes(req);
+
+      expect(res).toBeInstanceOf(Response);
+      expect(typeof res.status).toBe("number");
+      expect(res.status).toBeGreaterThanOrEqual(200);
+      expect(res.status).toBeLessThan(600);
     });
   });
 
   describe("GET /api/events/:id", () => {
     it("should return event by id", async () => {
       const url = new URL("http://localhost:3000/api/events/1");
-      const req = new Request(url, { method: "GET" });
-      // This would verify correct event is returned
-      expect(true).toBe(true);
+      const req = new Request(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      const res = await handleEventRoutes(req);
+
+      expect(res).toBeInstanceOf(Response);
+      expect(res.status).toBe(200);
     });
 
     it("should return 404 for non-existent event", async () => {
       const url = new URL("http://localhost:3000/api/events/999");
-      const req = new Request(url, { method: "GET" });
-      // This would verify 404 is returned
-      expect(true).toBe(true);
+      const req = new Request(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      const res = await handleEventRoutes(req);
+
+      expect(res).toBeInstanceOf(Response);
+      expect(res.status).toBe(404);
     });
   });
 
