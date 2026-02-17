@@ -27,27 +27,6 @@ afterEach(() => {
 });
 
 describe("Events Repository", () => {
-  const mockEvent: Event = {
-    id: 1,
-    title: "Feeding Demo",
-    description: "Learn how to feed fish",
-    date: "2026-03-01T10:00:00Z",
-    end_date: null,
-    location: "Community Center",
-    image_url: "https://example.com/image.jpg",
-    max_participants: 20,
-    created_at: "2026-02-17T10:00:00Z",
-    updated_at: "2026-02-17T10:00:00Z",
-  };
-
-  const mockEventInput: EventInput = {
-    title: "Water Testing",
-    description: "Learn to test water quality",
-    date: "2026-03-15T14:00:00Z",
-    location: "Fish Lab",
-    max_participants: 15,
-  };
-
   describe("listEvents", () => {
     it("should list all future events when all=false", async () => {
       // This test demonstrates the expected behavior
