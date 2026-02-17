@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeEach } from "bun:test";
-import { createSession, validateSession, deleteSession } from "./sessions";
+import { beforeEach, describe, expect, it } from "bun:test";
+import { createSession, deleteSession, validateSession } from "../auth/sessions";
 
 describe("Sessions", () => {
   beforeEach(() => {
