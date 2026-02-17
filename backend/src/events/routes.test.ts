@@ -100,8 +100,8 @@ describe("Event Routes", () => {
         },
         body: JSON.stringify({ title: "No Date Event" }),
       });
-      // This would verify 400 for missing date
-      expect(true).toBe(true);
+      const res = await handleEventRoutes(req);
+      expect(res.status).toBe(400);
     });
 
     it("should require title field", async () => {
