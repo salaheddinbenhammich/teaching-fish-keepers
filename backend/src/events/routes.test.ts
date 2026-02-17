@@ -81,8 +81,14 @@ describe("Event Routes", () => {
           date: "2026-03-10T10:00:00Z",
         }),
       });
-      // This would verify 201 status and event returned
-      expect(true).toBe(true);
+
+      const res = await handleEventRoutes(req);
+      expect(res.status).toBe(201);
+
+      const createdEvent = await res.json();
+      expect(createdEvent).toBeDefined();
+      expect(createdEvent.title).toBe("New Event");
+      expect(createdEvent.date).toBe("2026-03-10T10:00:00Z");
     });
 
     it("should require title and date fields", async () => {
