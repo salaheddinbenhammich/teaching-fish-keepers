@@ -1,6 +1,6 @@
 /**
  * Database Mock Utilities for Testing
- * 
+ *
  * This module provides utilities to mock the SQL database connection
  * for testing purposes, allowing tests to run without a real database.
  */
@@ -17,8 +17,8 @@ export interface SqlMockOptions {
  */
 export function createMockSql(options: SqlMockOptions = {}) {
   const storage = {
-    events: new Map<number, Event>(options.events?.map(e => [e.id, e]) ?? []),
-    nextEventId: Math.max(0, ...(options.events?.map(e => e.id) ?? [0])) + 1,
+    events: new Map<number, Event>(options.events?.map((e) => [e.id, e]) ?? []),
+    nextEventId: Math.max(0, ...(options.events?.map((e) => e.id) ?? [0])) + 1,
   };
 
   const mockSql = async (query: TemplateStringsArray, ...params: unknown[]) => {
@@ -30,12 +30,13 @@ export function createMockSql(options: SqlMockOptions = {}) {
         // Future events only
         const today = new Date();
         return Array.from(storage.events.values())
-          .filter(e => new Date(e.date) >= today)
+          .filter((e) => new Date(e.date) >= today)
           .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
       }
       // All events
-      return Array.from(storage.events.values())
-        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      return Array.from(storage.events.values()).sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+      );
     }
 
     // Mock getEvent

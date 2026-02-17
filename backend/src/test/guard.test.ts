@@ -1,7 +1,7 @@
-import { describe, it, expect } from "bun:test";
-import { extractBearerToken } from "./routes";
-import { requireAuth } from "./guard";
-import { createSession } from "./sessions";
+import { describe, expect, it } from "bun:test";
+import { requireAuth } from "../auth/guard";
+import { extractBearerToken } from "../auth/routes";
+import { createSession } from "../auth/sessions";
 
 describe("Auth Guard", () => {
   describe("requireAuth", () => {
