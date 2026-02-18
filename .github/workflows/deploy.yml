@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -11,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Copy config files to server
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -27,6 +31,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            mkdir -p /opt/club-poisson
             cd /opt/club-poisson
             echo "SERVER_HOST=${{ secrets.SERVER_DOMAIN }}" > .env
             echo "PGUSER=${{ secrets.PGUSER }}" >> .env
