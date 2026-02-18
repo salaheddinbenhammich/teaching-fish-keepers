@@ -2,11 +2,17 @@ name: Frontend CI
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "frontend/**"
+      - "biome.json"
   pull_request:
+    branches:
+      - main
     paths:
       - "frontend/**"
+      - "biome.json"
 
 jobs:
   quality:

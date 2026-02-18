@@ -2,11 +2,17 @@ name: Backend CI
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "backend/**"
+      - "biome.json"
   pull_request:
+    branches:
+      - main
     paths:
       - "backend/**"
+      - "biome.json"
 
 jobs:
   quality:
