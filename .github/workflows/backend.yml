@@ -61,7 +61,7 @@ jobs:
         working-directory: backend
     needs: quality
     # Only push image on pushes to main (not on PRs)
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
 
     steps:
       - name: Checkout repository
