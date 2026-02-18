@@ -31,7 +31,6 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            mkdir -p /opt/club-poisson
             cd /opt/club-poisson
             echo "SERVER_HOST=${{ secrets.SERVER_DOMAIN }}" > .env
             echo "PGUSER=${{ secrets.PGUSER }}" >> .env
