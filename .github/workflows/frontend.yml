@@ -13,6 +13,7 @@ on:
     paths:
       - "frontend/**"
       - "biome.json"
+  workflow_dispatch:
 
 jobs:
   quality:
