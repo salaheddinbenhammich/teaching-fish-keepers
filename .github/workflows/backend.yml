@@ -1,0 +1,48 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "backend/**"
+      - "biome.json"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "backend/**"
+      - "biome.json"
+
+jobs:
+  quality:
+    name: Lint, Format & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install root dependencies
+        run: bun install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Install backend dependencies
+        run: bun install --frozen-lockfile
+        working-directory: backend
+
+      - name: Check formatting (Biome)
+        run: bun run format
+
+      - name: Lint (Biome)
+        run: bun run lint
+
+      - name: Run tests
+        run: bun run test
+        working-directory: backend
