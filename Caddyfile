@@ -1,4 +1,4 @@
-your-domain.com {
+{$SERVER_HOST} {
     # API calls go to the backend
     handle /api/* {
         reverse_proxy backend:3000

@@ -42,6 +42,8 @@ services:
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
+    environment:
+      - SERVER_HOST=${SERVER_HOST}
     depends_on:
       - frontend
       - backend
