@@ -1,7 +1,6 @@
 services:
   db:
     image: postgres:17
-    restart: unless-stopped
     environment:
       POSTGRES_USER: ${PGUSER}
       POSTGRES_PASSWORD: ${PGPASSWORD}
@@ -12,10 +11,13 @@ services:
       test: ["CMD-SHELL", "pg_isready -U ${PGUSER} -d ${PGDATABASE}"]
       interval: 10s
       retries: 5
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
   backend:
     image: ghcr.io/${GITHUB_REPOSITORY}/backend:latest
-    restart: unless-stopped
     environment:
       PGHOST: db
       PGPORT: 5432
@@ -23,19 +25,38 @@ services:
       PGUSER: ${PGUSER}
       PGPASSWORD: ${PGPASSWORD}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+      interval: 15s
+      retries: 3
     depends_on:
-      db:
-        condition: service_healthy
+      - db
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      update_config:
+        order: start-first
+        failure_action: rollback
 
   frontend:
     image: ghcr.io/${GITHUB_REPOSITORY}/frontend:latest
-    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80 || exit 1"]
+      interval: 15s
+      retries: 3
     depends_on:
       - backend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      update_config:
+        order: start-first
+        failure_action: rollback
 
   caddy:
     image: caddy:2-alpine
-    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
@@ -47,6 +68,10 @@ services:
     depends_on:
       - frontend
       - backend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
 volumes:
   db_data:
