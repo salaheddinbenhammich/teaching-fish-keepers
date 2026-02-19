@@ -1,6 +1,6 @@
 # Club Poisson — Mise en production
 
-Projet réalisé dans le cadre du cours de mise en production professionnelle.
+Projet réalisé dans le cadre du cours devops.
 
 **Membres du groupe :**
 - Salaheddin BEN HAMMICH
