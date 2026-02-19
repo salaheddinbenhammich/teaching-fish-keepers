@@ -206,13 +206,13 @@ Le frontend utilise [Vitest](https://vitest.dev/) avec `@testing-library/react`.
 cd frontend
 
 # Exécuter les tests une fois
-bun test
+bun run test
 
 # Mode watch (relance les tests à chaque modification)
-bun test --watch
+bun run test --watch
 
 # Avec rapport de couverture
-bun test --coverage
+bun run test --coverage
 ```
 
 **Couverture des tests :**
